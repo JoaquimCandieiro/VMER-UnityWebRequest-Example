@@ -13,14 +13,19 @@ public class PlayerData
     [Serializable]
     public class PlayerDataInfo
     {
-        public string name = "NaN";
-        public int lives = -1;
-        public float health = -1f;
+        public string name = "teste";
+        public int lives = 99;
+        public float health = 100f;
     }
 
     public static PlayerDataInfoArray CreateClassFromJson(string json)
     {
         return JsonUtility.FromJson<PlayerDataInfoArray>(json);
+    }
+
+    public static string CreateJsonFromClass(PlayerDataInfo playerDataInfo)
+    {
+        return JsonUtility.ToJson(playerDataInfo);
     }
 }
 

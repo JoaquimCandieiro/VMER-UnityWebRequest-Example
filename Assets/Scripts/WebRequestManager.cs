@@ -6,6 +6,8 @@ public class WebRequestManager : MonoBehaviour
 {
     [SerializeField] private string _serverPath = "http://localhost:8080";
     [SerializeField] private string _getUrl = "/get-data";
+    [SerializeField] private string _getDatabasebUrl = "/get-data-from-db";
+    [SerializeField] private string _postDatabasebUrl = "/post-data-to-db";
     [SerializeField] private string _postUrl = "/post-data";
     private void Start()
     {
@@ -18,17 +20,25 @@ public class WebRequestManager : MonoBehaviour
 
         if (buttonType == "get")
         {
-            StartCoroutine(GetRequest());
+            StartCoroutine(GetRequest(_serverPath + _getUrl));
         }
         else if (buttonType == "post")
         {
-            StartCoroutine(PostRequest());
+            StartCoroutine(PostRequest(_serverPath + _postUrl));
+        }
+        else if (buttonType == "getdb")
+        {
+            StartCoroutine(GetRequest(_serverPath + _getDatabasebUrl));
+        }
+        else if (buttonType == "postdb")
+        {
+            StartCoroutine(PostRequest(_serverPath + _postDatabasebUrl));
         }
     }
 
-    private IEnumerator GetRequest()
+    private IEnumerator GetRequest(string url)
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get(_serverPath + _getUrl);
+        UnityWebRequest webRequest = UnityWebRequest.Get(url);
         // Set a timeout for the request (In seconds)
         webRequest.timeout = 10;
         // Send the request and wait for a response
@@ -43,18 +53,18 @@ public class WebRequestManager : MonoBehaviour
         }
     }
 
-    private IEnumerator PostRequest()
+    private IEnumerator PostRequest(string url)
     {
         PlayerData.PlayerDataInfo playerDataInfo = new PlayerData.PlayerDataInfo
         {
-            name = "Jotha",
+            name = "NewPlayer1",
             lives = 3,
             health = 100.0f
         };
 
         string playerInfoJson = PlayerData.CreateJsonFromClass(playerDataInfo);
 
-        UnityWebRequest webRequest = UnityWebRequest.Post(_serverPath + _postUrl, playerInfoJson, "application/json");
+        UnityWebRequest webRequest = UnityWebRequest.Post(url, playerInfoJson, "application/json");
         // Set a timeout for the request (In seconds)
         webRequest.timeout = 10;
         // Send the request and wait for a response

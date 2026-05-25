@@ -24,6 +24,9 @@ let playerDataArray = [
     }
 ]
 
+const mysql = require("mysql2");
+const config = require("./config/config.json");
+
 /**
  * Método para tratar a requisição GET para o endpoint /get-data
  * @param {Object} request
@@ -52,5 +55,38 @@ function postData(request, response) {
     response.send("Data received successfully!");
 }
 
+function getDataFromDatabase(request, response) {
+    const connection = mysql.createConnection(config.database);
+    connection.connect();
+    connection.query(
+        "SELECT name, lives, health FROM player_info",
+        function (error, rows, fields) {
+            if (error) {
+                console.log("Error fetching data from database: ", error);
+                response.status(500).send("Error fetching data from database");
+            }
+            else {
+                response.send(
+                    JSON.stringify({_playerDataInfoArray: rows})
+                )
+            }
+        }
+    )
+    connection.end()
+}
+
+function postDataToDatabase(request, response) {
+    let receivedData = request.body
+    const connection = mysql.createConnection(config.database);
+    connection.connect();
+    connection.query(
+        `INSERT INTO (name, lives, health) VALUES(${receivedData.name}, ${receivedData.lives}, ${receivedData.health})`,
+        function (error, rows, fields) {
+            // para fazer...
+        }
+    )
+}
+
 module.exports.getData = getData;
 module.exports.postData = postData;
+module.exports.getDataFromDatabase = getDataFromDatabase;

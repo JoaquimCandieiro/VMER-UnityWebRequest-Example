@@ -2,5 +2,11 @@
     "server": {
         "host": "http://localhost",
         "port": 8080
+    },
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "password": "123456789",
+        "database": "vmer_unitywebrequest"
     }
 }

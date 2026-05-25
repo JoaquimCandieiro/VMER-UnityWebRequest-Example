@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Server for Unity",
   "license": "ISC",
-  "author": "",
+  "author": "JC",
   "type": "commonjs",
   "main": "app.js",
   "scripts": {

@@ -12,20 +12,14 @@ create table player_info(
 );
 
 insert into player_info(name, lives, health)
-values(
-	'Player1',
-    3,
-    98.0
-),
-(
-	'Player2',
-    1,
-    70.5
-);
+values
+('Player1', 3, 98.0),
+('Player2', 1, 70.5),
+('Player3', 2, 36.0);
 
 select *
 from player_info;
 
 delete
 from player_info
-where id is null;
+where id = 4;

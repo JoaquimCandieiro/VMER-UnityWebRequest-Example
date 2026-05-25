@@ -90,3 +90,4 @@ function postDataToDatabase(request, response) {
 module.exports.getData = getData;
 module.exports.postData = postData;
 module.exports.getDataFromDatabase = getDataFromDatabase;
+module.exports.postDataToDatabase = postDataToDatabase;
